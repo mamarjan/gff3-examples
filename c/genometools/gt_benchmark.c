@@ -7,7 +7,7 @@ static GtOptionParser* gt_benchmark_option_parser_new(void *tool_arguments){
 
   op = gt_option_parser_new("test_file ",
                             "Iterate over the GFF3 input file one "
-                            "record at a time and display the number of records.");
+                            "record at a time.");
 
   return op;
 }
