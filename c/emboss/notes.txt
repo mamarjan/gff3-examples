@@ -1,0 +1,17 @@
+# Benchmark building notes
+
+To compile the benchmark with the latest EMBOSS package, first download
+and extract the package into some directory, then copy the "benchmark.c"
+file to "emboss/" subdirectory, and the benchmark.acd file to the
+"emboss/acd/" subdirectory.
+
+To make the "make" command build the benchmark tool, edit
+"emboss/Makefile.am" file:
+
+ * add "benchmark" to the "bin_PROGRAMS" variable,
+
+ * add line "benchmark_SOURCES = benchmark.c" line, close to where other
+   "*_SOURCES" variables are defined.
+
+Then run "./configure" and "make".
+
