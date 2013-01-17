@@ -1,0 +1,18 @@
+appl: benchmark [
+  doc: "Benchmark the GFF parser code, by iterating over one file",
+  groups: "utilities"
+]
+
+section: input [
+  information: "Input section"                                                      
+  type: "page"
+]
+
+  features: features [                                                              
+    parameter: "Y" 
+    type: "any"                                                                     
+    relations: "EDAM_data:1255 Feature record"                                      
+  ] 
+    
+endsection: input
+

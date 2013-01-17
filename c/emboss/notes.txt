@@ -13,5 +13,16 @@ To make the "make" command build the benchmark tool, edit
  * add line "benchmark_SOURCES = benchmark.c" line, close to where other
    "*_SOURCES" variables are defined.
 
+ * go back to root EMBOSS-vvv directory, and run the following sequence
+   to recreate emboss/Makefile.in:
+
+     aclocal -I m4
+     autoconf
+     automake -a
+
 Then run "./configure" and "make".
+
+Benchmark tool is then run as:
+
+  benchmark gff::path_to_file.gff3
 
