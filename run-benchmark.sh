@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This script will download all it needs and run x repetitions of every
 # benchmark implementation
 
@@ -104,8 +106,48 @@ fi
 
 
 # Ruby setup
+echo "  Setting up Ruby examples..."
 
+export USE_RUBY_VERSION=1.9.3
+export GEMSET_NAME=gff3-benchmark-script
 
+# We require rvm
+echo "    Testing for rvm..."
+
+source "$HOME/.rvm/scripts/rvm"
+if [ $? -ne 0 ]; then
+  echo !!! RVM has to be installed before the benchmark is run
+fi
+
+echo "    Testing for right Ruby version..."
+CORRECT_RUBY_VERSION_INSTALLED=`rvm list rubies | grep $USE_RUBY_VERSION`
+if [ ! "$CORRECT_RUBY_VERSION_INSTALLED" ]; then
+  echo "    Installing Ruby $USE_RUBY_VERSION..."
+  rvm install $USE_RUBY_VERSION
+fi
+rvm $USE_RUBY_VERSION
+
+CORRECT_GEMSET_AVAILABLE=`rvm list gemsets | grep ruby-$USE_RUBY_VERSION | grep $GEMSET_NAME`
+echo $CORRECT_GEMSET_AVAILABLE
+
+if [ ! "$CORRECT_GEMSET_AVAILABLE" ]; then
+  rvm gemset create $GEMSET_NAME
+fi
+rvm use $USE_RUBY_VERSION@$GEMSET_NAME
+
+echo "    Installing BioRuby..."
+gem install bio -v 1.4.3
+if [ $? -ne 0 ]; then
+  echo "!!! Instalation of the bio gem failed"
+  exit 1
+fi
+
+echo "    Installing bio-gff3 gem"
+gem install bio-gff3 -v 0.9.1
+if [ $? -ne 0 ]; then
+  echo "!!! Instalation of the bio-gff3 gem failed"
+  exit 1
+fi
 
 
 
